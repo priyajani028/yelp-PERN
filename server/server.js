@@ -28,20 +28,25 @@ app.get("/api/v1/restaurants", async(req,res)=>{
     }
 });
 
-app.get("/api/v1/restaurants/:id",async (req,res)=>{
-    try{
-        const result = await db.query("select * from restaurants where $1", [req.params.id]);
-        //console.log(result);
+app.get("/api/v1/restaurants/:id", async (req, res) => {
+    try {
+        const result = await db.query("SELECT * FROM restaurants WHERE id = $1", [req.params.id]);
+        // console.log(result);
         res.status(200).json({
             status: "success",
             data: {
-                restaurants: result.rows[0],
+                restaurant: result.rows[0],
             }
         });
-    }catch(err){
+    } catch (err) {
         console.log(err);
+        res.status(500).json({
+            status: "error",
+            message: "Internal Server Error"
+        });
     }
 });
+
 
 app.post("/api/v1/restaurants",async (req,res)=>{
     try{

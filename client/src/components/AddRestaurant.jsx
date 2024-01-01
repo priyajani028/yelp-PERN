@@ -14,7 +14,7 @@ function AddRestaurant() {
       const response= await RestaurantFinder.post("/", {
         name, location, price_range : priceRange,
       });
-      console.log(response);
+      //console.log(response);
       addRestaurant(response.data.data.restaurants);
     }catch(err){
       console.log(err);

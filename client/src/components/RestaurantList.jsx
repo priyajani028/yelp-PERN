@@ -1,12 +1,14 @@
 import React, {useState, useContext, useEffect} from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
 import { RestaurantsContext } from '../context/RestaurantsContext';
+import { useNavigate } from 'react-router-dom';
 
 function RestaurantList(props) {
   const { restaurants, setRestaurants} = useContext(RestaurantsContext);
+  let navigate = useNavigate();
 
-  const handleUpdate =()=>{
-
+  const handleUpdate =(id)=>{
+    navigate(`/restaurants/${id}/update`);
   }
 
   const handleDelete=async(id)=>{
@@ -24,7 +26,7 @@ function RestaurantList(props) {
     const fetchData = async () => {
       try {
         const response = await RestaurantFinder.get("/");
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setRestaurants(response.data.data.restaurants);
       } catch (err) {
         console.log(err);
@@ -55,7 +57,7 @@ function RestaurantList(props) {
                   <td>{"$".repeat(restaurant.price_range)}</td>
                   <td>reviews</td>
                   <td>
-                    <button className='btn btn-warning' onClick={handleUpdate}>Update</button>
+                    <button className='btn btn-warning'  onClick={() => handleUpdate(restaurant.id)}>Update</button>
                   </td>
                   <td>
                     <button className='btn btn-danger' onClick={()=>handleDelete(restaurant.id)}>Delete</button>
