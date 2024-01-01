@@ -7,11 +7,13 @@ function RestaurantList(props) {
   const { restaurants, setRestaurants} = useContext(RestaurantsContext);
   let navigate = useNavigate();
 
-  const handleUpdate =(id)=>{
+  const handleUpdate =(e, id)=>{
+    e.stopPropagation();
     navigate(`/restaurants/${id}/update`);
   }
 
-  const handleDelete=async(id)=>{
+  const handleDelete=async(e,id)=>{
+    e.stopPropagation();
     try{
       const response= await RestaurantFinder.delete(`${id}`);
       setRestaurants(restaurants.filter((restaurant)=>{
@@ -35,6 +37,10 @@ function RestaurantList(props) {
     fetchData();
   }, []);
 
+  const handleSelected =(id)=>{
+    navigate(`/restaurants/${id}`);
+  }
+
   return (
     <div className='list-group'>
       <table className="table table-dark table-hover align-middle ">
@@ -51,16 +57,16 @@ function RestaurantList(props) {
         <tbody>
           {restaurants && restaurants.map((restaurant)=>{
             return(
-              <tr key={restaurant.id}>
+              <tr onClick={()=>handleSelected(restaurant.id)} key={restaurant.id}>
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{"$".repeat(restaurant.price_range)}</td>
                   <td>reviews</td>
                   <td>
-                    <button className='btn btn-warning'  onClick={() => handleUpdate(restaurant.id)}>Update</button>
+                    <button className='btn btn-warning'  onClick={(e) => handleUpdate(e,restaurant.id)}>Update</button>
                   </td>
                   <td>
-                    <button className='btn btn-danger' onClick={()=>handleDelete(restaurant.id)}>Delete</button>
+                    <button className='btn btn-danger' onClick={(e)=>handleDelete(e,restaurant.id)}>Delete</button>
                   </td>
               </tr>
             )
