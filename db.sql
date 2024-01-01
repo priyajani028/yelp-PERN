@@ -1,3 +1,10 @@
+\d
+(for displaying over-all relations/tables )
+
+\d tableName
+(for displaying field names in that table)
+
+
 CREATE TABLE restaurants(
     id BIGSERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -12,3 +19,15 @@ INSERT INTO restaurants (name, location, price_range) values ('Starbucks', 'Rajk
 INSERT INTO restaurants (name, location, price_range) values ('wendys', 'Vadodara', 2);
 INSERT INTO restaurants (name, location, price_range) values ('Boba Cafe', 'Gandhinagar', 5);
 INSERT INTO restaurants (name, location, price_range) values ('Tea post', 'Amreli', 3);
+
+
+CREATE TABLE reviews(
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    restaurant_id BIGSERIAL NOT NULL references restaurants(id),
+    name VARCHAR(50) NOT NULL,
+    review TEXT NOT NULL,
+    rating INT NOT NULL check(rating >=1 and rating <=5)
+);
+
+INSERT INTO reviews (restaurant_id, name, review, rating) values (9, 'John', 'What to say', 3);
+INSERT INTO reviews (restaurant_id, name, review, rating) values (9, 'Millee', 'Good', 4);
