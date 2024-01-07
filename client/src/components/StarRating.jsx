@@ -7,11 +7,11 @@ function StarRating({ rating }) {
   const stars = [];
   for (let i = 1; i <= 5; i++) {
     if (i <= Math.floor(rating)) {
-      stars.push(<FontAwesomeIcon key={i} icon={faStar} />);
+      stars.push(<FontAwesomeIcon key={i} icon={faStar} className='text-warning' />);
     } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
-      stars.push(<FontAwesomeIcon key={i} icon={faStarHalfAlt} />);
+      stars.push(<FontAwesomeIcon key={i} icon={faStarHalfAlt} className='text-warning'/>);
     } else {
-      stars.push(<FontAwesomeIcon key={i} icon={farStar} />);
+      stars.push(<FontAwesomeIcon key={i} icon={farStar} className='text-warning' />);
     }
   }
   return <>{stars}</>;
