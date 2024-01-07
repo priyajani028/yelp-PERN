@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { RestaurantsContext } from '../context/RestaurantsContext';
 import RestaurantFinder from '../apis/RestaurantFinder';
 import { useParams } from 'react-router-dom';
+import StarRating from '../components/StarRating';
 
 function RestaurantDetailsPage() {
   const {id} = useParams();
@@ -26,6 +27,7 @@ function RestaurantDetailsPage() {
         <h1 className='font-weight-light display-1 text-center'>
         {selectedRestaurant.restaurant.name}
         </h1>
+        <StarRating rating={5}/>
       </>)}
     </div>
   )
