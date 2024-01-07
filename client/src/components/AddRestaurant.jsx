@@ -33,7 +33,7 @@ function AddRestaurant() {
           </div>
           <div className="d-flex flex-row justify-content-center flex-fill">
             <select value={priceRange} onChange={(e)=> setPriceRange(e.target.value)} className='form-select me-2'>
-              <option value="" disabled>Price Range</option>
+              <option disabled>Price Range</option>
               <option value="1">$</option>
               <option value="2">$$</option>
               <option value="3">$$$</option>

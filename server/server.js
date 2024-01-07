@@ -39,8 +39,9 @@ app.get("/api/v1/restaurants", async(req,res)=>{
 
 app.get("/api/v1/restaurants/:id", async (req, res) => {
     try {
-        const restaurant = await db.query("SELECT * FROM restaurants WHERE id = $1", [req.params.id]);
+        //const restaurant = await db.query("SELECT * FROM restaurants WHERE id = $1", [req.params.id]);
         // console.log(result);
+        const restaurant =await db.query("select * from restaurants left join (select restaurant_id, COUNT(*), TRUNC(AVG(rating),1) as average_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id where id =$1", [req.params.id])
         const reviews = await db.query("SELECT * FROM reviews WHERE restaurant_id = $1", [req.params.id]);
         res.status(200).json({
             status: "success",
@@ -91,18 +92,41 @@ app.put("/api/v1/restaurants/:id", async(req,res)=>{
 
 app.delete("/api/v1/restaurants/:id", async(req,res)=>{
     try{
+        const deletedReviews = await db.query("DELETE FROM reviews WHERE restaurant_id = $1 RETURNING *", [req.params.id]);
         const result = await db.query("DELETE FROM restaurants where id=$1 returning *", [req.params.id]);
         //console.log(result);
         res.status(204).json({
             status: "success",
             data: {
+                reviews: deletedReviews.rows[0],
                 restaurants: result.rows[0],
+                
             }
         });
     }catch(err){
         console.log(err);
     }
 });
+
+// app.delete("/api/v1/reviews/:id", async (req, res) => {
+//     try {
+//       const deletedReviews = await db.query("DELETE FROM reviews WHERE restaurant_id = $1 RETURNING *", [req.params.id]);
+//       // Handle the response or send a success status
+//       res.status(204).json({
+//         status: "success",
+//         data: {
+//           reviews: deletedReviews.rows[0],
+//         },
+//       });
+//     } catch (err) {
+//       console.log(err);
+//       res.status(500).json({
+//         status: "error",
+//         message: "Internal Server Error",
+//       });
+//     }
+//   });
+  
 
 app.post("/api/v1/restaurants/:id/addReview", async(req,res)=>{
     try{

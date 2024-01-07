@@ -2,26 +2,30 @@ import React, {useState, useContext, useEffect} from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder'
 import { RestaurantsContext } from '../context/RestaurantsContext';
 import { useNavigate } from 'react-router-dom';
+import StarRating from './StarRating';
 
 function RestaurantList(props) {
   const { restaurants, setRestaurants} = useContext(RestaurantsContext);
   let navigate = useNavigate();
 
+  const handleDelete = async (e, id) => {
+    e.stopPropagation();
+    try {
+      //const deletedReviews = await RestaurantFinder.delete(`/reviews/${id}`);
+      const response = await RestaurantFinder.delete(`/${id}`);
+      setRestaurants(
+        restaurants.filter((restaurant) => {
+          return restaurant.id !== id;
+        })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleUpdate =(e, id)=>{
     e.stopPropagation();
     navigate(`/restaurants/${id}/update`);
-  }
-
-  const handleDelete=async(e,id)=>{
-    e.stopPropagation();
-    try{
-      const response= await RestaurantFinder.delete(`${id}`);
-      setRestaurants(restaurants.filter((restaurant)=>{
-        return restaurant.id !== id;
-      }));
-    }catch(err){
-      console.log(err);
-    }
   }
 
   useEffect(() => {
@@ -39,6 +43,18 @@ function RestaurantList(props) {
 
   const handleSelected =(id)=>{
     navigate(`/restaurants/${id}`);
+  }
+
+  const renderRating=(restaurant)=>{
+    if(!restaurant.count){
+      return <span className='text-warning ml-1'>0 reviews</span>
+    }
+    return (
+      <>
+      <StarRating rating={restaurant.average_rating}/>
+      <span className='text-warning ml-1'>({restaurant.count})</span>
+      </>
+    )
   }
 
   return (
@@ -61,7 +77,7 @@ function RestaurantList(props) {
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{"$".repeat(restaurant.price_range)}</td>
-                  <td>reviews</td>
+                  <td>{renderRating(restaurant)}</td>
                   <td>
                     <button className='btn btn-warning'  onClick={(e) => handleUpdate(e,restaurant.id)}>Update</button>
                   </td>
