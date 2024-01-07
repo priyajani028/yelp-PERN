@@ -6,8 +6,8 @@ function Reviews({reviews}) {
     <div className='row row-cols-3 mb-2 '>
         {reviews && reviews.map((review)=>{
             return (
-                <div className=''>
-                  <div key={review.id} className="card text-bg-primary mb-3 col" >
+                <div  key={review.id}  className=''>
+                  <div className="card text-bg-primary mb-3 col" >
                     <div className="card-header d-flex justify-content-between">
                       <span className='' style={{ minWidth: "50%", textAlign: 'left' }}>{review.name}</span>
                       <StarRating rating={review.rating}/>
