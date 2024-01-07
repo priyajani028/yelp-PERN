@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "http://localhost:4000/api/v1/restaurants",
+    baseURL: "https://yelp-pern-backend.vercel.app/api/v1/restaurants",
 })
