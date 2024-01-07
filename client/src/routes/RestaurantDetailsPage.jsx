@@ -29,7 +29,7 @@ function RestaurantDetailsPage() {
         <h1 className='font-weight-light display-1 text-center'>
         {selectedRestaurant.restaurant.name}
         </h1>
-        <div className='text-center'>
+        <div className='text-center mt-2'>
         
         </div>
         <div className='mt-3'>

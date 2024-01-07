@@ -8,7 +8,7 @@ function AddReview() {
     const handleSubmit=()=>{
 
     }
-    
+
   return (
     <div className='mb-2'>
         <form className="row g-3">
@@ -19,7 +19,7 @@ function AddReview() {
                 onChange={(e)=> setName(e.target.value)}
                 className="form-control" placeholder='Enter your name' id="name"/>
             </div>
-            <div class="col-md-4">
+            <div className="col-md-4">
                 <label htmlFor='rating' className="form-label" style={{ textAlign: 'left', width: '100%' }}>Rating</label>
                 <select value={rating}
                 onChange={(e)=>setRating(e.target.value)}
