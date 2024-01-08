@@ -23,3 +23,17 @@ Notes are provided to understand the project flow.
 ## 🎥 Video
 
 ## 🖼️ Images
+
+Home page 
+
+![image](https://github.com/priyajani028/yelp-PERN/assets/87660206/c05b981e-d74b-405d-8f78-fde21e60292b)
+
+Update Page
+
+![image](https://github.com/priyajani028/yelp-PERN/assets/87660206/b1c1a855-e693-4c65-899f-0180d0156132)
+
+Reviews Page
+
+![image](https://github.com/priyajani028/yelp-PERN/assets/87660206/96d1ef45-d57f-4ade-bd15-01309fd9522e)
+
+
